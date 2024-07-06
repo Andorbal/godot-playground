@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://cq8vw56f8n5pc"]
+
+[ext_resource type="Shader" path="res://shaders/tutorial_3d_part_1.gdshader" id="1_rtqet"]
+[ext_resource type="Script" path="res://scripts/GroundPlane.gd" id="2_ub84f"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hq6mx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ol2f3"]
+noise = SubResource("FastNoiseLite_hq6mx")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_juh6o"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hr5bf"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_juh6o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aw4ja"]
+render_priority = 0
+shader = ExtResource("1_rtqet")
+shader_parameter/height_scale = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_ol2f3")
+shader_parameter/normalmap = SubResource("NoiseTexture2D_hr5bf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ne02j"]
+material = SubResource("ShaderMaterial_aw4ja")
+subdivide_width = 32
+subdivide_depth = 32
+
+[node name="Tutorial3DPart1" type="Node3D"]
+
+[node name="GroundPlane" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ne02j")
+script = ExtResource("2_ub84f")
+max_height_scale = 0.5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22048, 0.606467, 0.0513853)
+omni_range = 1.459
+omni_attenuation = 0.812252
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.529442, -0.422995, 0.735368, 0, 0.866826, 0.498612, -0.848346, 0.263986, -0.458934, 1.43588, 1.1246, -1.29699)

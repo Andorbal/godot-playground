@@ -21,8 +21,11 @@ void fragment() {
 	//COLOR.b = blue;
 	
 	/* Animate the tinting */
-	COLOR.b = abs(sin(TIME)) * blue;
+	//COLOR.b = abs(sin(TIME)) * blue;
 	
-	/* Flip the texture */
-	//COLOR = texture(TEXTURE, vec2(UV.x, 1.0 - UV.y)); // Read from texture again. 
+	/* Flip the texture, except the middle */
+	COLOR = texture(TEXTURE, vec2(UV.x, 1.0 - UV.y)); // Read from texture again. 
+	if (UV.x > 0.3 && UV.x < 0.7 && UV.y > 0.3 && UV.y < 0.7) {
+		COLOR = texture(TEXTURE, vec2(UV.x, UV.y)); // Read from texture again. 
+	}
 }
